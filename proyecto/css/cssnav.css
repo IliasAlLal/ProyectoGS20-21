@@ -1,0 +1,9 @@
+              li a:hover{
+          color:black;
+          font-weight: 700;
+
+          margin-top:-1px;
+          -webkit-transition: .5s all ease;
+          -moz-transition: .5s all ease;
+          transition: .5s all ease;
+        }

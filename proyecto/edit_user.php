@@ -1,15 +1,15 @@
 <?php
-
+session_start();
 if(empty($_REQUEST['id'])){// verifica si en la url hay un id
 	header("location: index.php");//si no lo hay nada  te manda al index
 } 
 else{
-	//y si no guarda el id en una variable
+	//si hay un id lo guarda en una variable
 	$idusuario = $_REQUEST['id'];
 	//conexion a la base de datois
 	include 'conexion.php';
 
-	//si le damos al boton aceptar
+	//verifica si le hemso dado al boton de aceptar
 	if(!empty($_POST)){
 		$alert='';
 		if(empty($_POST['usarionombre']) || empty($_POST['emailusu']) || empty($_POST['contrausu']) || empty($_POST['telefonousu']) ) {
@@ -68,18 +68,24 @@ else{
 		<title>Editar un usuario</title>
 	</head>
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">Navbar</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light shadow ">
+			<a class="navbar-brand" href="index.php">
+				 <img class="mt-1 mb-1 col-11" width="440" height="200" src="imagenes/kingphone2.png">
+
+			</a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
-					<a class="nav-item nav-link active" href="index.php">Inicio<span class="sr-only">(current)</span></a>
-					
 
-				</div>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			</div>
+		</nav>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Configuracion de Userio</li>
+			</ol>
 		</nav>
 		<div class="container mt-5 shadow-lg p-3 mb-5 bg-white rounded" style="background-color: #F5F5F5;text-align:center;">
 			<div class="row">
@@ -90,7 +96,7 @@ else{
 							<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 
 							<form method="POST" action="">
-								<!-- esto es para pillar el id del usuario cunado le demos a aceptar y los campos que quramos añadir-->
+								<!-- esto es para obtener el id del usuario cuando le demos a aceptar y los campos que queramos añadir-->
 								<input type="hidden" name="idusuario" value="<?php echo $idusuario?>">
 								<div class="form-group row">
 									<label for="statictnombre" class="col-sm-2 col-form-label">Usuario</label>
@@ -131,5 +137,7 @@ else{
 					</div>
 				</div>
 			</div>
+		</div>
+			<?php include 'footer.php'; ?>
 		</body>
 		</html>

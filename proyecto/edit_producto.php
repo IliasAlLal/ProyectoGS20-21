@@ -4,18 +4,18 @@ if(empty($_REQUEST['id'])){// verifica si en la url hay un id
 	header("location: index.php");//si no lo hay nada  te manda al index
 } 
 else{
-	//y si no guarda el id en una variable
+	//y si hay un id guarda el id en una variable para poder usarlo
 	$idproducto = $_REQUEST['id'];
-	//conexion a la base de datois
+	//conexion a la base de datos
 	include 'conexion.php';
 
-	//si le damos al boton aceptar
+	//verifica si le hemos dado al boton aceptar
 	if(!empty($_POST)){
 		$alert='';
 		if(empty($_POST['nombreproducto']) ||  empty($_POST['precio']) || empty($_POST['descripcion']) ) {
 			$alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
 		} else{
-			//recogemos el valor del formulario.
+			//recogemos el valor del formulario de abajo.
 			$idproducto = $_POST['idproducto']; 
 			$nombreproducto  = $_POST['nombreproducto'];
 			$precio = $_POST['precio']; 
@@ -65,17 +65,18 @@ else{
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">Navbar</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
-					<a class="nav-item nav-link active" href="index.php">Inicio<span class="sr-only">(current)</span></a>
-					
+			<a class="navbar-brand" href="index.php">
+				 <img class="mt-1 mb-1 col-11" width="440" height="200" src="imagenes/kingphone2.png">
 
-				</div>
-			</div>
+			</a>
+
+
+		</nav>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Configuracion de Producto</li>
+			</ol>
 		</nav>
 		<div class="container mt-5 shadow-lg p-3 mb-5 bg-white rounded" style="background-color: #F5F5F5;text-align:center;">
 			<div class="row">
@@ -85,7 +86,7 @@ else{
 						<div class="col-12 mt-4">
 							<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 							<form enctype="multipart/form-data" method="POST"  action="">
-								<!-- esto es para pillar el id del usuario cunado le demos a aceptar-->
+								<!-- esto es para coger el id del usuario cunado le demos a aceptar-->
 								<input type="hidden" name="idproducto" value="<?php echo $idproducto?>">
 								<div class="form-group row">
 									<label for="statictnombre" class="col-sm-2 col-form-label">Producto</label>
@@ -105,17 +106,22 @@ else{
 										<input type="text" class="form-control"  value="<?php echo $descripcion?>"name="descripcion"  placeholder="Password">
 									</div>
 								</div>
-								<div class="col-12 m-3 mb-2">
-									<?php echo"<a href='modificar_imagen.php?id=".$_REQUEST['id']."' class='btn btn-info btn-sm'> Modificar </a>";?>
-								</div>
+								<div class="col-12  mb-2">
+                                    <?php echo"<a href='modificar_imagen1.php?id=".$_REQUEST['id']."' class='btn btn-info btn-sm'> Modificar imagen1</a>";?>
+                                </div>
+                                <div class="col-12  mb-2">
+                                    <?php echo"<a href='modificar_imagen2.php?id=".$_REQUEST['id']."' class='btn btn-info btn-sm'> Modificar imagen2</a>";?>
+                                </div>
 
-									<input type="submit" name="Aceptar" class="btn btn-primary" value="Aceptar">
-									<a href="index.php" class="btn btn-danger">Cancelar</a>
-								</form>
-							</div>
+								<input type="submit" name="Aceptar" class="btn btn-primary" value="Aceptar">
+								<a href="index.php" class="btn btn-danger">Cancelar</a>
+							</form>
 						</div>
 					</div>
 				</div>
-				<script src="scripts.js"></script>
-			</body>
-			</html>
+			</div>
+		</div>
+			<?php include 'footer.php'; ?>
+			<script src="scripts.js"></script>
+		</body>
+		</html>

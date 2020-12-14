@@ -1,0 +1,27 @@
+<?xml version='1.0' ?>
+<rss version='2.0'>
+	<channel>
+		<tittle>KingPhone RSS</tittle>
+		<description>KingPhone tienda</description>
+		<language>es-ES</language>
+		<link>http://kingphone.hopto.org/proyecto/index.php</link>
+		<item>
+			<tittle>SAMSUNG GALAXY NOTE 20 5G 256GB MYSTIC GRAY</tittle>
+			<description>Se vende SAMSUNG GALAXY NOTE 20 256GB 5G, NUEVO A ESTRENAR. Pantalla AMOLED 6.9" WQ-HD+. Cámara 108 + 12 + 12 MPx. Selfie 10 MPx. Memoria Interna 256GB. RAM 12 GB. Batería 4500 mAh. Procesador Samsung Exynos 990 núcleos. Redes: 5G. USB tipo C. Dolby ATMOS. Grado de protección IP68. 1 año de garantía. Envíos en 24h . (91783)</description>
+			<link>http://kingphone.hopto.org/proyecto/producto.php?idproducto=6</link>
+		</item>
+		<item>
+			<tittle>PocoPhone</tittle>
+			<description>Este es un móvil que destaca por su ligereza, seguro que te encanta. Este teléfono tiene unas cámaras prestacionales: su cámara principal de 12 Mpx y con una apertura f/2.4 con una apertura f/2.4; también cuenta con cámara frontal de 12 Mpx y f/2.2 de apertura para tus selfies. Dentro de su carcasa tiene un procesador creado por Apple. El teléfono tiene una pantalla de formato reducido de 6,1 pulgadas (15.49 cm) de diagonal y una resolución de (1792x828), que no ocupa espacio en tu bolsillo. Con la carga inalámbrica podrás alimentar cómodamente su batería de 3110 mAh de capacidad, además de tener conectividad de tipo Lightning. Equipado con la red 5g para que disfrutes de alta velocidad de conexión sin comparación, además de conectividad Wi-Fi. Disfruta de prestaciones multimedia mediante interfaz Bluetooth v5.0 para que se conecte con la amplia gama de productos compatibles que hay en el mercado, y conexión para audio de tipo Lightning. Posee espacio para 2 tarjetas SIM (dual-SIM).</description>
+			<link>http://kingphone.hopto.org/proyecto/producto.php?idproducto=3</link>
+		</item>
+		<item>
+			<tittle>Phone 11</tittle>
+			<description>Hay que ser muy bueno para hacer una foto mala. Un sistema de cámara dual totalmente nuevo. Ahora puedes hacer fotos a tus anchas, literalmente. Gracias a la nueva cámara con ultra gran angular, la interfaz te muestra lo que hay fuera del encuadre y te permite incluso fotografiarlo. Además, grabar y editar vídeos pasa a ser igual de fácil que con las fotos. La cámara más popular del mundo vuelve con una nueva y espectacular perspectiva.
+				Retoque de vídeo profesional. Muy profesional. Graba y retoca con la mayor calidad de vídeo vista en un smartphone. El iPhone 11 te permite grabar vídeos en 4K a 60 f/s supernítidos con cualquiera de sus cámaras. El ultra gran angular captura un campo de visión cuatro veces más amplio y es perfecto para escenas con sujetos en movimiento, como tu perro cogiendo un hueso al vuelo. Si, por ejemplo, estás grabando un recital, cuando haces zoom puedes ampliar no solo la imagen, sino también el sonido. Y una alegría más: editar vídeos pasa a ser igual que editar fotos. Más fácil imposible.
+				Nueva cámara con ultra gran angular. La nueva cámara con ultra gran angular abarca cuatro veces más imagen. Prepárate para capturar paisajes infinitos, sacar en una sola imagen todo el escenario y el público de un festival, o juntar en una foto a toda tu familia sin dejar fuera nada de esa playa que tanto os gusta.
+				Nuevo modo Noche. Hacer fotos con poca luz ya no es hacer fotos a ciegas. El nuevo modo Noche se activa automáticamente para que consigas imágenes increíbles en ambientes muy poco iluminados. Disfruta de colores más naturales y fotos más brillantes sin tirar de flash.</description>
+				<link>http://kingphone.hopto.org/proyecto/producto.php?idproducto=26</link>
+			</item>
+		</channel>
+	</rss>

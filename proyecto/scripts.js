@@ -1,3 +1,110 @@
+function darOpcion1(){
+  $("#opcion1").click(function(){
+    $('.caros').show();
+    $('.baratos').hide();
+    $('.novedades').hide();
+  $('.iphone').hide();
+  $('.samsung').hide();
+  $('.huawei').hide();
+  });
+
+}
+function darOpcion2(){
+  $("#opcion2").click(function(){
+    $('.caros').hide();
+    $('.baratos').show();
+    $('.novedades').hide();
+  $('.iphone').hide();
+  $('.samsung').hide();
+  $('.huawei').hide();
+  });
+
+}
+function darOpcionNormal(){
+   $("#opcion0").click(function(){
+    $('.normales').show();
+    $('.caros').hide();
+    $('.baratos').hide();
+    $('.novedades').hide();
+  $('.iphone').hide();
+  $('.samsung').hide();
+  $('.huawei').hide();
+  });
+}
+
+function darNovedades(){
+  $("#list-novedades-list").click(function(){
+    $('.novedades').show();
+    $('.iphone').hide();
+    $('.samsung').hide();
+    $('.huawei').hide();
+
+    $('#titulomovil').html("Últimos artículos");
+  });
+  
+}
+function darIphone(){
+  $("#list-iphone-list").click(function(){
+    $('.iphone').show();
+    $('.novedades').hide();
+    $('.samsung').hide();
+    $('.huawei').hide();
+
+    $('#titulomovil').html("Iphone");
+  });
+  
+}
+function darSamsung(){
+  $("#list-samsung-list").click(function(){
+    $('.samsung').show();
+    $('.novedades').hide();
+    $('.iphone').hide();
+    $('.huawei').hide();
+    $('#titulomovil').html("Samsung");
+  });
+  
+}
+function darHuawei(){
+  $("#list-huawei-list").click(function(){
+    $('.huawei').show();
+    $('.novedades').hide();
+    $('.iphone').hide();
+    $('.samsung').hide();
+    $('#titulomovil').html("Huawei");
+  });
+  
+}
+function baratos(){
+
+ $('.baratos').hide();
+
+}
+function normales(){
+
+ $('.normales').hide();
+
+}
+function caros(){
+
+ $('.caros').hide();
+
+}
+
+function ocultarIphone(){
+
+ $('.iphone').hide();
+
+}
+function ocultarSamsung(){
+
+ $('.samsung').hide();
+
+}
+function ocultarHuawei(){
+
+ $('.huawei').hide();
+
+}
 function ocultarInfousuario(){
 
  $('#nuevousuario').hide();
@@ -40,6 +147,7 @@ function darclickContra(){
 
   });
 }
+
 $(document).ready(function () {
 //ocultar formulario de produictos
 ocultarInfoproducto();
@@ -50,6 +158,24 @@ darclickUsuario();
 //ocultar formulario de contraseña
 ocultarContra();
 darclickContra();
+// funciones para el mini menu del index
+darNovedades();
+darIphone();
+ocultarIphone();
+darSamsung();
+ocultarSamsung();
+darHuawei();
+ocultarHuawei();
+//oculta por defecto el div caros
+
+//cuando le des a la opcion del selec del mas caro aparezca los articulos ordenados por precioy desaparece la otros articulos mal ordenados 
+darOpcion1();
+darOpcion2();
+darOpcionNormal();
+normales();
+
+caros();
+baratos();
 //registro
 
 $('#registroform').submit(function(e) {
@@ -71,7 +197,13 @@ $('#registroform').submit(function(e) {
                 }
                 else
                 {
-                 alert("no te has podido registrar");
+                  $('#erroreguistro').html("<div class='mt-3 alert alert-danger' role='alert'>No te has Podido Registrar</div>");
+                  //
+                 //alert("no te has podido registrar");
+                 setTimeout(function() {
+                       //$(".content").fadeOut(1500);
+                       $('#erroreguistro').hide();
+                     },3000);
                }
              }
            });
@@ -124,12 +256,14 @@ $('#nuevoproductoform').submit(function(e) {
                 if (jsonData.success == "1")
                 {
 
-                  location.href = "index.php";
+                  $('#notificacion1').html("<div class='mt-3 alert alert-success' role='alert'>producto añadido</div>");
+                  setTimeout(location.href = "index.php", 5000);
                 }
                 else
                 {
-                  alert("No se ha añadido un nuevo producto");
-                  location.href = "index.php";
+                  $('#notificacion1').html("<div class='mt-3 alert alert-danger' role='alert'>El Producto no se a Podido Añadido</div>");
+                  //alert("No se ha añadido un nuevo producto");
+                  //location.href = "index.php";
                   exit;
                 }
               }
@@ -197,12 +331,12 @@ $('#anadirnuevousuarioporadmin').submit(function(e) {
                 // let's redirect
                 if (jsonData.success == "1")
                 {
-
-                  location.href = "index.php";
+                  $('#notificacion1').html("<div class='mt-3 alert alert-success' role='alert'>Usuario añadido Correctamente</div>");
+                  setTimeout(location.href = "index.php",3000);//location.href = "index.php";
                 }
                 else
                 {
-                 alert("no has podido anadir un nuevo usuario");
+                 $('#notificacion1').html("<div class='mt-3 alert alert-danger' role='alert'>No se a Podido Añadido un Nuevo Usuario</div>");
                }
              }
            });
@@ -223,7 +357,6 @@ $(".enviar-btn").keypress(function(event) {
     var date_show = now.getDate() + '-' + now.getMonth() + '-' + now.getFullYear() + ' ' + now.getHours() + ':' + + now.getMinutes() + ':' + + now.getSeconds();
 
     if (comentario == '') {
-      alert('Debes añadir un comentario');
       return false;
     }
 
@@ -268,16 +401,135 @@ $(document).on('keyup', '#caja_busqueda', function(){
   }
 });
 //captcha
-    $('#captcha').on('blur', function() {
-        var captcha = $(this).val();
-        var dataStringg = 'captcha='+captcha;
-        $.ajax({
-             type: "POST",
-             url: 'check_captcha.php',
-             data: dataStringg,
-             success: function(data) {
-                $('#result-captcha').fadeIn(1000).html(data);
-            }
-       });
+$('#captcha').on('blur', function() {
+  var captcha = $(this).val();
+  var dataStringg = 'captcha='+captcha;
+  $.ajax({
+   type: "POST",
+   url: 'check_captcha.php',
+   data: dataStringg,
+   success: function(data) {
+    $('#result-captcha').fadeIn(1000).html(data);
+  }
+});
+});
+    //estrellas 
+    $(function () {
+      $(".rateyo").rateYo().on("rateyo.change", function (e, data) {
+        var rating = data.rating;
+        $(this).parent().find('.score').text('score :'+ $(this).attr('data-rateyo-score'));
+        $(this).parent().find('.result').text('rating :'+ rating);
+            $(this).parent().find('input[name=rating]').val(rating); //add rating value to input field
+          });
+    });
+//realizar la votacion de estrellas 
+$('#evaluarr').submit(function(e) {
+  e.preventDefault();
+  $.ajax({
+    type: "POST",
+    url: 'evaluarproducto.php',
+    data: $(this).serialize(),
+    success: function(response)
+    {
+      var jsonData = JSON.parse(response);
+
+                // user is logged in successfully in the back-end
+                // let's redirect
+                if (jsonData.success == "1")
+                {
+
+                  $('#noti').html("<div class='mt-3 alert alert-success' role='alert'>Votación enviada!</div>");
+                }
+                else
+                {
+                  $('#noti').html("<div class='mt-3 alert alert-success' role='alert'>No se ha podido Votación enviada!</div>");
+                }
+              }
+            });
+
+});
+//compara el email y lo escribe
+    $('#email').on('blur', function() {
+      var email = $("#email").val();
+
+      var dataString = 'email=' + email;
+      $.ajax({
+        type: "POST",
+        url: "check_email.php",
+        data: dataString,
+        success: function(data) {
+          $('#emailnoti').fadeIn(1000).html(data);
+        }
+      });
+    });
+//compara el nombre y lo escribe
+$('#usuario').on('blur', function() {
+      var usuario = $(this).val();
+      var dataString = 'usuario='+usuario;
+      $.ajax({
+        type: "POST",
+        url: "checkearUsuario.php",
+        data: dataString,
+        success: function(data) {
+          $('#result-username').fadeIn(1000).html(data);
+        }
+      });
+    });
+
+    //compara las contraseñas y lo escribe
+    $('#contrasenarep').on('blur', function() {
+      var contra1 = $("#contrasena").val();
+      var contra2 = $("#contrasenarep").val();
+      var dataString = 'contrasena=' + contra1 + '&contrasenarep=' + contra2;
+      $.ajax({
+        type: "POST",
+        url: "check_contrasena.php",
+        data: dataString,
+        success: function(data) {
+          $('#contrausu').fadeIn(1000).html(data);
+        }
+      });
+    });
+    //compara el telefono y lo escribe
+    $('#telefono').on('blur', function() {
+      var telefono = $("#telefono").val();
+
+      var dataString = 'telefono=' + telefono;
+      $.ajax({
+        type: "POST",
+        url: "check_telefono.php",
+        data: dataString,
+        success: function(data) {
+          $('#telenoti').fadeIn(1000).html(data);
+        }
+      });
+    });
+    //compara el telefono y lo escribe
+    $('#nombre').on('blur', function() {
+      var nombre = $("#nombre").val();
+
+      var dataString = 'nombre=' + nombre;
+      $.ajax({
+        type: "POST",
+        url: "check_nombre.php",
+        data: dataString,
+        success: function(data) {
+          $('#nombrenoti').fadeIn(1000).html(data);
+        }
+      });
+    });
+
+      $('#apellido').on('blur', function() {
+      var apellido = $("#apellido").val();
+
+      var dataString = 'apellido=' + apellido;
+      $.ajax({
+        type: "POST",
+        url: "check_apellido.php",
+        data: dataString,
+        success: function(data) {
+          $('#nombrenoti').fadeIn(1000).html(data);
+        }
+      });
     });
 });

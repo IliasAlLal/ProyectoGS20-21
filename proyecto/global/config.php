@@ -1,5 +1,5 @@
 <?php
-//constante encriptacion.. se envian los datos encriptados
+//constante encriptada para la conexion a la base de datos para hacerla mas seguro
 define ("KEY", "ilies");
 define("COD", "AES-128-ECB");
 

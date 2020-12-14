@@ -1,12 +1,12 @@
 <?php
 
 if(empty($_REQUEST['id'])){// verifica si en la url hay un id
-	header("location: index.php");//si no lo hay nada  te manda al index
+	header("location: index.php");//si no hay nada te manda al index
 } 
 else{
-	//y si no guarda el id en una variable
+	//si hya un index lo guarda en una variable
 	$idproducto = $_REQUEST['id'];
-	//conexion a la base de datois
+	//conexion a la base de datos
 	include 'conexion.php';
 
 	//si le damos al boton aceptar
@@ -69,19 +69,19 @@ else{
 		<title>Editar un usuario</title>
 	</head>
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">Navbar</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
-					<a class="nav-item nav-link active" href="index.php">Inicio<span class="sr-only">(current)</span></a>
-					
+		 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow ">
+    <a class="navbar-brand" href="index.php">
+       <img class="mt-1 mb-1 col-11" width="440" height="200" src="imagenes/kingphone2.png">
 
-				</div>
-			</div>
-		</nav>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    </div>
+  </nav>
 		<div class="container mt-5 shadow-lg p-3 mb-5 bg-white rounded" style="background-color: #F5F5F5;text-align:center;">
 			<div class="row">
 				<div class="col-12 mt-4">
@@ -90,7 +90,7 @@ else{
 						<div class="col-12 mt-4">
 							<div class="alert"><?php echo isset($alert) ? $alert : ''; ?></div>
 							<form enctype="multipart/form-data" method="POST"  action="">
-								<!-- esto es para pillar el id del usuario cunado le demos a aceptar-->
+								<!-- esto es para coger el id del usuario cuando le demos a aceptar-->
 								<input type="hidden" name="idproducto" value="<?php echo $idproducto?>">
 								<div class="form-group row">
 									<label for="statictnombre" class="col-sm-2 col-form-label">Producto</label>
@@ -111,9 +111,9 @@ else{
 									</div>
 								</div>
 								<b>Imagen actual</b> 
-								<!--Muestra la imaben de la base de datos -->
+								<!--Muestra la imagen de la base de datos -->
 								<div class="col-12 m-3">
-									<img id="imgSalida" src="<?php echo $imagen;?>" width="300" />
+									<img id="imgSalida" src="imagenes/<?php echo $imagen;?>" width="300" />
 								</div>
 
 								<input type="submit" name="Aceptar" class="btn btn-primary" value="Aceptar">
@@ -123,6 +123,8 @@ else{
 					</div>
 				</div>
 			</div>
+		</div>
+			<?php include 'footer.php'; ?>
 			<script src="scripts.js"></script>
 		</body>
 		</html>

@@ -1,5 +1,5 @@
 <?php
-//Si existe una id en la url... luego verificamos si esa id la tiene un usuario y la mostramos por pantalla
+//Si existe un id en la url verificamos si esa id la tiene un usuario y la mostramos por pantalla si no te devuelve al index
 
 
 if(empty($_REQUEST['id'])){
@@ -9,15 +9,12 @@ if(empty($_REQUEST['id'])){
 	include 'conexion.php';
 
 
-	if(!empty($_POST)){ //si le damos al boton aceptar
-	$idusuario = $_POST['idusuario']; //recogemos el valor del formulario...metodo rapido para recoger el id del usuario
+	if(!empty($_POST)){ //comprueba si le dimos al boton aceptar
+	$idusuario = $_POST['idusuario']; //recogemos el valor del formulario
 	$sql = "DELETE FROM Usuario WHERE ID='$idusuario'";
-	//$sqlpubli = "DELETE FROM publicaciones WHERE user='$idusuario'"; //tambn borra las publicaciones que tiene
-
-	//hay que borrar mas
-
-
+	//$sqlpubli = "DELETE FROM publicaciones WHERE user='$idusuario'";
     $result = $conn->query($sql);
+    //comprueba si se a podido borrar
     if($result){
     	header("location:index.php");
     } else{
@@ -43,7 +40,25 @@ if(empty($_REQUEST['id'])){
 	<!DOCTYPE html>
 	<html>
 	<head>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light shadow ">
+			<a class="navbar-brand" href="index.php">
+				 <img class="mt-1 mb-1 col-11" width="440" height="200" src="imagenes/kingphone2.png">
 
+			</a>
+
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			</div>
+		</nav>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
+				<li class="breadcrumb-item active" aria-current="page">Eliminar un Usuario</li>
+			</ol>
+		</nav>
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
@@ -62,7 +77,7 @@ if(empty($_REQUEST['id'])){
 					<div class="row">
 						<div class="col-12 mt-4">
 							<form method="POST" action="">
-								<!-- esto es para pillar el id del usuario cunado le demos a aceptar-->
+								<!-- esto es para obtener  el id del usuario cuando le demos a aceptar-->
 								<input type="hidden" name="idusuario" value="<?php echo $idusuario?>">
 								<input type="submit" name="Aceptar" class="btn btn-primary" value="Aceptar">
 								<a href="index.php" class="btn btn-danger">Cancelar</a>
@@ -71,5 +86,7 @@ if(empty($_REQUEST['id'])){
 					</div>
 				</div>
 			</div>
+		</div>
+			<?php include 'footer.php'; ?>
 		</body>
 		</html>

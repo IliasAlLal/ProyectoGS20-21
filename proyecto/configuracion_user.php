@@ -4,10 +4,11 @@ $user = $_SESSION['user'];
 include 'global/config.php';
 include 'global/conexion.php';
 include 'conexion.php';
-  if(!empty($_POST)){ //si le damos al boton aceptar
+
+  if(!empty($_POST)){ //Comprueba si le hemos damos al boton aceptar
     $alert='';
     if(empty($_POST['usuario']) || empty($_POST['email']) || empty($_POST['telefono'])  ) {
-      echo "pon todos los campos";
+      echo "<div class='mt-3 alert alert-danger' role='alert'>Pon Todos Los Campos</div>";
       $alert = '<p class="msg_error">Todos los campos son obligatorios.</p>';
     } else{ 
       $user = $_SESSION['user'];
@@ -16,9 +17,12 @@ include 'conexion.php';
       $contraActual = $_POST['contraActual']; 
       $contra1 = $_POST['contra1']; 
       $contra2 = $_POST['contra2'];
-      $telefono = $_POST['telefono']; 
+      $telefono = $_POST['telefono'];
+      $nombre = $_POST['nombre'];
+      $apellido = $_POST['apellido'];
+      $direccion = $_POST['direccion']; 
 
-      //recogemos el valor del formulario...metodo rapido para recoger el id del usuario
+      //recogemos el valor del formulario de forma rapida para recoger el id del usuario
       $sqlA = $conn->query("SELECT * FROM usuario WHERE Usuario = '". $_SESSION['user']."'");//selecciona todos los datos del usuario actual 
       $rowA = $sqlA->fetch_array(); //convertir los datos obtenidos de la base de datos en un array
       $sqlpass = $conn->query("SELECT Contrasena FROM usuario WHERE Usuario = '".$_SESSION['user']."'");//selecciona la contraseña del usuario actual
@@ -27,7 +31,7 @@ include 'conexion.php';
       //si esta vascio vamos a rellenar de nuevo los campos con los datos ya existentes  
         $contra2 = $rowA['Contrasena'];
 
-        $sql = "UPDATE usuario SET Usuario='$usuario', Email='$email', Contrasena='$contra2', Telefono='$telefono',Nombre='nombre1', Apellidos='apellido'WHERE Usuario= '".$_SESSION['user']."'";
+        $sql = "UPDATE usuario SET Usuario='$usuario', Email='$email', Contrasena='$contra2', Telefono='$telefono',Nombre='$nombre', Apellidos='$apellido' , Dirección='$direccion'WHERE Usuario= '".$_SESSION['user']."'";
         $sql1 =$conn->query("SELECT * FROM usuario WHERE Usuario= '".$_SESSION['user']."'");
         $result1=$sql1->fetch_array();
         $result = $conn->query($sql);
@@ -37,13 +41,14 @@ include 'conexion.php';
          //$correcto="<p style='color:green'><i>Se han modificado tus datos</i></p>";
        }  
      } else { 
-                  //verificamos si la contrasena coincide con la contrasena de la bd
+              //verificamos si la contrasena coincide con la contrasena de la bd
       if($rowA['Contrasena'] == $contraActual){//si la contraseña guarda en la base de datos y la contraseña introducida en el campo del usuario hace el if
         if($contra1 == $contra2){//si los campos nueva contraseña y respetir contraseña son iguales se hace el siguiente if
           $actualizar = $conn->query("UPDATE Usuario SET Contrasena = '$contra1' WHERE Usuario= '".$_SESSION['user']."'");
           if($actualizar){
             $bien ="<p style='color:green;'>Se ha actualizado tu contraseña</p>";
-            $sql = "UPDATE usuario SET Usuario='$usuario', Email='$email', Contrasena='$contra2', Telefono='$telefono',Nombre='nombre1', Apellidos='apellido'WHERE Usuario= '".$_SESSION['user']."'";
+
+            $sql = "UPDATE usuario SET Usuario='$usuario', Email='$email', Contrasena='$contra2', Telefono='$telefono',Nombre='$nombre', Apellidos='$apellido' , Dirección='$direccion'WHERE Usuario= '".$_SESSION['user']."'";
             $sql1 =$conn->query("SELECT * FROM usuario WHERE Usuario= '".$_SESSION['user']."'");
             $result1=$sql1->fetch_array();
             $result = $conn->query($sql);
@@ -87,62 +92,82 @@ include 'conexion.php';
   </style>
 </head>
 <body>
-  <div class="container mt-5 ">
-    <div>
-      <img src="imagenes/user1.png" height="700" class="rounded float-left">
-    </div>
-    <div>
-      <h3 class="text-left"><?php echo $_SESSION['user'];?></h3>
-    </div>
-    <?php if(isset($correcto)) { echo $correcto; } ?>
-    <?php
-    $sentencia=$pdo->prepare("SELECT * FROM usuario WHERE Usuario= '".$_SESSION['user']."'");
-    $sentencia->execute();
-    $usuarios=$sentencia->fetchAll(PDO::FETCH_ASSOC);
-      //print_r($listaProductos);
-    ?>
-    <?php foreach($usuarios as $usuario){ ?>
-      <form action="" method="post">
-        Nombre: <?php echo $usuario['Usuario']; ?> <br>
-        <input type="text"  name="usuario" placeholder="Nuevo usuario"value="<?php echo $usuario['Usuario']; ?>"><br>
-        Email: <?php echo $usuario['Email']; ?><br>
-        <input type="text"  name="email" placeholder="Nuevo email" value="<?php echo $usuario['Email']; ?>"><br>
-        
-        Telefono: <?php echo $usuario['Telefono']; ?><br>
-        <input type="text"  name="telefono" placeholder="Nuevo telefono" value="<?php echo $usuario['Telefono']; ?>"><br>
-        Nombre: <?php echo $usuario['Nombre']; ?><br>
-        <input type="text"  name="nombre" placeholder="Nuevo nombre"value="<?php echo $usuario['Nombre']; ?>"><br>
-        Apellidos: <?php echo $usuario['Apellidos']; ?><br>
-        <input type="text"  name="apellido" placeholder="Nuevo apellido"value="<?php echo $usuario['Apellidos']; ?>"><br>
-        Direccion: <?php echo $usuario['Dirección']; ?> <br>
-        <input type="text"  name="direccion" placeholder="Nueva direccion" value="<?php echo $usuario['Dirección']; ?>"><br>
-        <button type="button" id="contraboton" class="btn btn-link">Cambiar contraseña</button><br>
-        <div id="contradiv">
-          Contraseña actual: <br>
-          <input type="text"  name="contraActual" placeholder="Contraseña actual"value=""><br>
-          Contraseña nueva: <br>
-          <input type="text"  name="contra1" placeholder="Nueva contrasena"value=""><br>
-          Repite contraseña: <br>
-          <input type="text"  name="contra2" placeholder="Repite nueva contrasena"value=""><br><br>
-        </div>
-        <input type="submit" name="Aceptar" class="btn btn-primary" value="Modificar cambios">
-        <a href="index.php">Volver atras</a>
-      </form>
-      <?php if(isset($bien)) { echo $bien; } ?>
-        <?php if(isset($no1)) { echo $no1; } ?>
-        <?php if(isset($no2)) { echo $no2; } ?>
-    <?php  }  ?>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow ">
+    <a class="navbar-brand" href="index.php">
+     <img class="mt-1 mb-1 col-11" width="440" height="200" src="imagenes/kingphone2.png">
+
+   </a>
+
+   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
   </div>
+</nav>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.php">Inicio</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Configuración</li>
+  </ol>
+</nav>
+<div class="container mt-5 ">
+  <div>
+    <img src="imagenes/user1.png" height="540" class="rounded float-left">
+  </div>
+  <div>
+    <h3 class="text-left"><?php echo $_SESSION['user'];?></h3>
+  </div>
+  <?php if(isset($correcto)) { echo $correcto; } ?>
+  <?php
+  //se realiza el selec para poder visualizar los datos de la sesion acutal con los datos de usuario actual
+  $sentencia=$pdo->prepare("SELECT * FROM usuario WHERE Usuario= '".$_SESSION['user']."'");
+  $sentencia->execute();
+  $usuarios=$sentencia->fetchAll(PDO::FETCH_ASSOC);
+      //Se muestran los datos y campos tanto del usuario actual como la forma en la que permite rellenar los nuevos parametros
+  ?>
+  <?php foreach($usuarios as $usuario){ ?>
+    <form action="" method="post">
+      Usuario: <?php echo $usuario['Usuario']; ?> <br>
+      <input type="text"  name="usuario" placeholder="Nuevo usuario"value="<?php echo $usuario['Usuario']; ?>"><br>
+      Email: <?php echo $usuario['Email']; ?><br>
+      <input type="text"  name="email" placeholder="Nuevo email" value="<?php echo $usuario['Email']; ?>"><br>
+
+      Telefono: <?php echo $usuario['Telefono']; ?><br>
+      <input type="text"  name="telefono" placeholder="Nuevo telefono" value="<?php echo $usuario['Telefono']; ?>"><br>
+      Nombre: <?php echo $usuario['Nombre']; ?><br>
+      <input type="text"  name="nombre" placeholder="Nuevo nombre"value="<?php echo $usuario['Nombre']; ?>"><br>
+      Apellidos: <?php echo $usuario['Apellidos']; ?><br>
+      <input type="text"  name="apellido" placeholder="Nuevo apellido"value="<?php echo $usuario['Apellidos']; ?>"><br>
+      Direccion: <?php echo $usuario['Dirección']; ?> <br>
+      <input type="text"  name="direccion" placeholder="Nueva direccion" value="<?php echo $usuario['Dirección']; ?>"><br>
+      <button type="button" id="contraboton" class="btn btn-link">Cambiar contraseña</button><br>
+      <div id="contradiv">
+        Contraseña actual: <br>
+        <input type="text"  name="contraActual" placeholder="Contraseña actual"value=""><br>
+        Contraseña nueva: <br>
+        <input type="text"  name="contra1" placeholder="Nueva contrasena"value=""><br>
+        Repite contraseña: <br>
+        <input type="text"  name="contra2" placeholder="Repite nueva contrasena"value=""><br><br>
+      </div>
+      <input type="submit" name="Aceptar" class="btn btn-primary" value="Modificar cambios">
+      <a href="index.php">Volver atras</a>
+    </form>
+    <?php if(isset($bien)) { echo $bien; } ?>
+    <?php if(isset($no1)) { echo $no1; } ?>
+    <?php if(isset($no2)) { echo $no2; } ?>
+  <?php  }  ?>
+</div>
 
 
 
+<?php include 'footer.php'; ?>
+<!-- Optional JavaScript; choose one of the two! -->
 
-  <!-- Optional JavaScript; choose one of the two! -->
-
-  <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-  <script src="scripts.js"></script>
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script src="scripts.js"></script>
 
     <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
